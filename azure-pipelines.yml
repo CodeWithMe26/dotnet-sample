@@ -37,3 +37,18 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+stages:
+ - stage: Build
+   jobs: 
+    - job: Deploy
+      pool:
+       vmImage: 'vs2017-win2016'
+      steps:
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: 'Azure for Students (9dccc2fd-f54b-41f4-93af-075a94f30522)'
+            appType: 'webApp'
+            WebAppName: 'demo-webapp-yaml'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
