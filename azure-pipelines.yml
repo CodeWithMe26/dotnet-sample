@@ -44,7 +44,7 @@ stages:
           publishLocation: 'pipeline'
 
  - stage: 'DeployToDev'
-   dependsOn: 'Build Stage'
+   dependsOn: 'BuildStage'
    jobs:
      - job: 
        pool: 
@@ -64,7 +64,7 @@ stages:
             packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
         
  - stage: 'DeployToQA'
-   dependsOn: 'Deploy To Dev'
+   dependsOn: 'DeployToDev'
    jobs:
      - job: 
        pool: 
