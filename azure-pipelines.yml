@@ -75,4 +75,20 @@ stages:
             buildType: 'current'
             artifactName: 'drop'
             targetPath: '$(Pipeline.Workspace)'
-        
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: 'Azure for Students (9dccc2fd-f54b-41f4-93af-075a94f30522)'
+            appType: 'webApp'
+            WebAppName: 'qa-for-yaml'
+            deployToSlotOrASE: true
+            ResourceGroupName: 'ayush_rg'
+            SlotName: 'staging'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        - task: AzureAppServiceManage@0
+          inputs:
+            azureSubscription: 'Azure for Students (9dccc2fd-f54b-41f4-93af-075a94f30522)'
+            Action: 'Swap Slots'
+            WebAppName: 'qa-for-yaml'
+            ResourceGroupName: 'ayush_rg'
+            SourceSlot: 'staging'
