@@ -7,7 +7,7 @@ trigger:
 - master
 
 stages:
- - stage: 'Build Stage'
+ - stage: 'BuildStage'
    jobs: 
     - job: 'BuildJob'
       pool:
@@ -43,7 +43,7 @@ stages:
           artifact: 'drop'
           publishLocation: 'pipeline'
 
- - stage: 'Deploy To Dev'
+ - stage: 'DeployToDev'
    dependsOn: 'Build Stage'
    jobs:
      - job: 
@@ -63,7 +63,7 @@ stages:
             WebAppName: 'demo-webapp-yaml'
             packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
         
- - stage: 'Deploy To QA'
+ - stage: 'DeployToQA'
    dependsOn: 'Deploy To Dev'
    jobs:
      - job: 
