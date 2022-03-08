@@ -61,7 +61,7 @@ stages:
             azureSubscription: 'Azure for Students (9dccc2fd-f54b-41f4-93af-075a94f30522)'
             appType: 'webApp'
             WebAppName: 'demo-webapp-yaml'
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
         
  - stage: 'DeployToQA'
    dependsOn: 'DeployToDev'
@@ -84,7 +84,7 @@ stages:
             deployToSlotOrASE: true
             ResourceGroupName: 'ayush_rg'
             SlotName: 'staging'
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
         - task: AzureAppServiceManage@0
           inputs:
             azureSubscription: 'Azure for Students (9dccc2fd-f54b-41f4-93af-075a94f30522)'
