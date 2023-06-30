@@ -6,6 +6,16 @@
 trigger:
 - master
 
+resources:
+ webhooks:
+  - webhook: jira-webhook          ### Webhook alias
+    connection: jira-webhook    ### Incoming webhook service connection
+    filters:
+      - path: dotnet-sample      ### JSON path in the payload
+        value: dotnet-sample     ### Expected value in the path provided
+      - path: action
+        value: CREATED
+
 stages:
  - stage: 'BuildStage'
    jobs: 
@@ -17,6 +27,7 @@ stages:
         solution: '**/*.sln'
         buildPlatform: 'Any CPU'
         buildConfiguration: 'Release'
+      
 
       steps:
       - task: NuGetToolInstaller@1
